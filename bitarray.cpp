@@ -2,6 +2,13 @@
 #include <stdexcept>
 #include <iostream>
 
+/// </summary>
+/// Realization of bitarray
+/// For functions descriptions, look in header file (bitarray.h)
+/// </summary>
+
+
+// Utility function for indexation of array
 void BitArray::set_bit(int i, bool val)
 {
 #ifdef _WIN64
@@ -27,6 +34,7 @@ void BitArray::set_bit(int i, bool val)
 	}
 }
 
+// Utility function, count real array size
 int BitArray::real_bits_count()
 {
 	return sizeof(bitword) * 8 * _arr_size;
