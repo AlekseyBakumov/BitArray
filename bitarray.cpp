@@ -87,6 +87,7 @@ void BitArray::swap(BitArray& b)
 	if (_bits_count != b._bits_count)
 		throw std::runtime_error("Arrays have different sizes");
 #endif
+	if (this == &b) return;
 
 	int t = _current_indx;
 	_current_indx = b._current_indx;

@@ -23,6 +23,28 @@ TEST(InitTests, Reset) {
  EXPECT_FALSE(bits1[3]);
 }
 
+TEST(InitTests, ResetTwice) {
+ BitArray bits1(5, true);
+ bits1.set(1,true);
+ bits1.set(3, true);
+ bits1.reset();
+ bits1.reset();
+ EXPECT_FALSE(bits1[1]);
+ EXPECT_FALSE(bits1[3]);
+}
+
+TEST(InitTest, AssignOperator) {
+ BitArray bits1(7);
+ BitArray bits2(7);
+ bits1.set(4);
+ bits1.set(5);
+ bits2.set(1);
+ bits2 = bits1;
+ EXPECT_TRUE(bits2[4]);
+ EXPECT_TRUE(bits2[5]);
+ EXPECT_FALSE(bits2[1]);
+}
+
 TEST(InitTests, IncorrectTest) {
  BitArray bits1(5, true);
  bits1.reset(1);
@@ -95,3 +117,68 @@ TEST(BitOps, Logic_Shift) {
  EXPECT_FALSE(bits1[2]);
  EXPECT_TRUE(bits1[6]);
 }
+
+TEST(BitOps, BitCount) {
+ BitArray bits1(10);
+ bits1.set(2);
+ bits1.set(3);
+ bits1.set(6);
+ EXPECT_EQ(3, bits1.count());
+}
+
+TEST(BitOps, Any) {
+ BitArray bits1(10);
+ BitArray bits2(6);
+ bits1.reset();
+ EXPECT_FALSE(bits1.any());
+ bits2.set(3);
+ bits2.set(4);
+ EXPECT_TRUE(bits2.any());
+}
+
+TEST(BitOps, None) {
+ BitArray bits1(10);
+ BitArray bits2(6);
+ bits1.reset();
+ EXPECT_TRUE(bits1.none());
+ bits2.set(4);
+ bits2.set(1);
+ EXPECT_FALSE(bits2.none());
+}
+
+TEST(Other, Swap) {
+ BitArray bits1(10);
+ BitArray bits2(10);
+ bits1.set(2);
+ bits1.set(3);
+ bits2.set(6);
+
+ bits1.swap(bits2);
+
+ EXPECT_TRUE(bits1[6]);
+ EXPECT_TRUE(bits2[2]);
+ EXPECT_TRUE(bits2[3]);
+
+ EXPECT_FALSE(bits1[2]);
+ EXPECT_FALSE(bits1[3]);
+ EXPECT_FALSE(bits2[6]);
+}
+
+TEST(Other, SwapItself) {
+ BitArray bits1(10);
+ bits1.set(4);
+ bits1.swap(bits1);
+ EXPECT_TRUE(bits1[4]);
+ EXPECT_FALSE(bits1[1]);
+}
+
+TEST(Other, Clear) {
+ BitArray bits1(5,  true);
+ bits1.set(1);
+ bits1.set(2);
+ bits1.reset();
+ EXPECT_FALSE(bits1[1]);
+ EXPECT_FALSE(bits1[2]);
+ EXPECT_FALSE(bits1[3]);
+}
+
