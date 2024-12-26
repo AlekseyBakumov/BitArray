@@ -1,7 +1,5 @@
 #pragma once
 #include <string>
-//В этой задаче для простоты не требуется делать контейнер шаблонным,
-//но это вполне допускается по желанию студента.
 class BitArray
 {
 	typedef char bitword;
@@ -19,69 +17,69 @@ public:
 	BitArray();
 	~BitArray();
 
-	//Конструирует массив, хранящий заданное количество бит.
-	//Первые sizeof(long) бит можно инициализровать с помощью параметра value.
+	//Builds array of size 'num_bits'
+	//First 'value' bits are init as true
 	explicit BitArray(int num_bits, unsigned long value = 0);
 	BitArray(const BitArray& b);
 
-	//Обменивает значения двух битовых массивов.
+	//Swap arrays
 	void swap(BitArray& b);
 
 	BitArray& operator=(const BitArray& b);
 
 
-	//Изменяет размер массива. В случае расширения, новые элементы 
-	//инициализируются значением value.
+	//Changes size of an array and fill  
+	//expanded values as 'value'
 	void resize(int num_bits, bool value = false);
-	//Очищает массив.
+	//Clear array
 	void clear();
-	//Добавляет новый бит в конец массива. В случае необходимости 
-	//происходит перераспределение памяти.
+	//Push new bit into array
+	//Expands array if necessary
 	void push_back(bool bit);
 
 	int GetBitsCount() const;
 
-	//Битовые операции над массивами.
-	//Работают только на массивах одинакового размера.
-	//Обоснование реакции на параметр неверного размера входит в задачу.
+	//Bit operations
+	//Works only on arrays of the same size.
 	BitArray& operator&=(const BitArray& b);
 	BitArray& operator|=(const BitArray& b);
 	BitArray& operator^=(const BitArray& b);
 
-	//Битовый сдвиг с заполнением нулями.
+	//Bit shift
+	//Fills with zero
 	BitArray& operator<<=(int n);
 	BitArray& operator>>=(int n);
 	BitArray operator<<(int n) const;
 	BitArray operator>>(int n) const;
 
 
-	//Устанавливает бит с индексом n в значение val.
+	//Set n-th bit as 'val'
 	BitArray& set(int n, bool val = true);
-	//Заполняет массив истиной.
+	//Set all array as true
 	BitArray& set();
 
-	//Устанавливает бит с индексом n в значение false.
+	//Set n-th bit as false
 	BitArray& reset(int n);
-	//Заполняет массив ложью.
+	//Set all array as false
 	BitArray& reset();
 
-	//true, если массив содержит истинный бит.
+	//true, if at least one bit true.
 	bool any() const;
-	//true, если все биты массива ложны.
+	//true, if all bits are false.
 	bool none() const;
-	//Битовая инверсия
+	//Bit inverse
 	BitArray operator~() const;
-	//Подсчитывает количество единичных бит.
+	//Counts true bits
 	int count() const;
 
 
-	//Возвращает значение бита по индексу i.
+	//Get i-th bit value
 	bool operator[](int i) const;
 
 	int size() const;
 	bool empty() const;
 
-	//Возвращает строковое представление массива.
+	//Transform array to string
 	std::string to_string() const;
 };
 
